@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for color changes */
 }
 
 .toggle-buttons {
@@ -16,17 +17,25 @@
   margin: 5px;
 }
 
+/* Global Styles */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #f0f0f0; /* Soft background for the entire page */
+  background-color: #f0f0f0; /* Light background */
+  color: #333; /* Default text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
-.container {
-  max-width: 900px;
-  margin: 50px auto;
-  padding: 20px;
+/* Dark Mode Styles */
+body.dark {
+  background-color: #121212; /* Dark background for the entire page */
+  color: #ffffff; /* Light text color */
+}
+
+.container.dark {
+  background-color: #1e1e1e; /* Darker container background */
+  color: #ffffff; /* Light text color for container */
 }
 
 button, .MuiToggleButton-root {
@@ -34,6 +43,35 @@ button, .MuiToggleButton-root {
   transition: background-color 0.3s ease;
 }
 
-button:hover, .MuiToggleButton-root:hover {
-  background-color: rgba(75, 192, 192, 0.2);
+/* Dark Mode Styles for Buttons */
+body.dark button, 
+body.dark .MuiToggleButton-root {
+  background-color: #333; /* Dark button background */
+  color: #ffffff; /* Light text color */
 }
+
+body.dark button:hover, 
+body.dark .MuiToggleButton-root:hover {
+  background-color: #444; /* Darker hover color for buttons in dark mode */
+}
+
+/* Additional Elements */
+.paper {
+  background-color: #ffffff; /* Light background for paper */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+body.dark .paper {
+  background-color: #1e1e1e; /* Dark background for paper in dark mode */
+  color: #ffffff; /* Light text color */
+}
+
+.chart-title {
+  color: #007bbd; /* Default title color */
+}
+
+body.dark .chart-title {
+  color: #4fa3e0; /* Lighter blue for dark mode */
+}
+
+/* Other elements can be styled similarly */

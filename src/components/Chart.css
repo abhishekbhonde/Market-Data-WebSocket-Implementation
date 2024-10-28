@@ -1,3 +1,4 @@
+/* Default Styles */
 body {
     margin: 0;
     background-color: #f4f7fa; /* Light background color for the entire page */
@@ -21,11 +22,6 @@ body {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   
-  .paper:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px); /* Lift effect on hover */
-  }
-  
   .chart-title {
     font-size: 28px;
     font-weight: bold;
@@ -41,6 +37,27 @@ body {
     border: 1px solid #e0e0e0; /* Light border around the chart */
     border-radius: 12px;
     background-color: #f9f9f9; /* Light background for the chart area */
+  }
+  
+  /* Dark Mode Styles */
+  body.dark {
+    background-color: #121212; /* Dark background for the entire page */
+    color: #ffffff; /* Light text color */
+  }
+  
+  body.dark .paper {
+    background-color: #1e1e1e; /* Dark background for paper in dark mode */
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); /* Light shadow for dark mode */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Light border for better visibility */
+  }
+  
+  body.dark .chart-title {
+    color: #76c7f0; /* Light blue for chart title in dark mode */
+  }
+  
+  body.dark .chart-container {
+    background-color: #242424; /* Dark background for the chart area in dark mode */
+    border: 1px solid #444; /* Darker border for the chart in dark mode */
   }
   
   .button-group {
@@ -64,6 +81,16 @@ body {
     background-color: #005f8d; /* Darker shade on hover */
   }
   
+  body.dark .button {
+    background-color: #1e88e5; /* Lighter blue for buttons in dark mode */
+    color: #ffffff; /* Ensure button text is readable */
+  }
+  
+  body.dark .button:hover {
+    background-color: #1565c0; /* Darker shade on hover for dark mode */
+  }
+  
+  /* Media Queries for Responsive Design */
   @media (max-width: 768px) {
     .chart-container {
       height: 300px; /* Smaller height for mobile */

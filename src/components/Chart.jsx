@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart as ChartJS, registerables, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import { Paper, Typography, Box } from '@mui/material';
+import { Paper, Typography, Box, useTheme } from '@mui/material';
 
 // Register necessary components for Chart.js
 ChartJS.register(...registerables, BarElement, CategoryScale, LinearScale);
@@ -8,11 +8,12 @@ ChartJS.register(...registerables, BarElement, CategoryScale, LinearScale);
 const Chart = ({ data }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const theme = useTheme(); // Get the current theme
 
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
 
-    // Destroy previous chart instance to avoid reuse errors
+    // Destroy the previous chart instance to avoid reuse errors
     if (chartInstance.current) {
       chartInstance.current.destroy();
     }
@@ -21,7 +22,7 @@ const Chart = ({ data }) => {
     const prices = data.map((d) => d.close);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
-
+    
     // Add padding to min and max for better visual separation
     const yPadding = (maxPrice - minPrice) * 0.3; // 30% padding
 
@@ -34,43 +35,58 @@ const Chart = ({ data }) => {
           {
             label: 'Closing Price (USDT)',
             data: prices,
-            backgroundColor: 'rgba(75, 192, 192, 0.7)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: theme.palette.mode === 'dark' 
+              ? 'rgba(100, 181, 246, 0.7)'  // Light blue in dark mode
+              : 'rgba(75, 192, 192, 0.7)',   // Default in light mode
+            borderColor: theme.palette.mode === 'dark' 
+              ? 'rgba(100, 181, 246, 1)' 
+              : 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
-            barPercentage: 0.6, // Keep consistent bar width
-            categoryPercentage: 0.8, // Control space between bars
+            barPercentage: 0.6,
+            categoryPercentage: 0.8,
           },
         ],
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false, // Ensures the chart fills container
+        maintainAspectRatio: false,
         scales: {
           x: {
             title: {
               display: true,
               text: 'Time',
+              color: theme.palette.text.primary, // Dynamic color based on theme
+            },
+            ticks: {
+              color: theme.palette.text.primary, // X-axis tick color
             },
           },
           y: {
-            min: minPrice - yPadding, // Add padding to lower bound
-            max: maxPrice + yPadding, // Add padding to upper bound
+            min: minPrice - yPadding,
+            max: maxPrice + yPadding,
             title: {
               display: true,
               text: 'Price (USDT)',
+              color: theme.palette.text.primary, // Y-axis title color
             },
             ticks: {
-              stepSize: (maxPrice - minPrice) / 5, // Bigger step size for clearer differences
+              color: theme.palette.text.primary, // Y-axis tick color
+              stepSize: (maxPrice - minPrice) / 5,
             },
           },
         },
         plugins: {
-          legend: { display: true },
+          legend: {
+            display: true,
+            labels: {
+              color: theme.palette.text.primary, // Legend text color
+            },
+          },
           tooltip: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            titleColor: '#fff',
-            bodyColor: '#fff',
-            borderColor: '#fff',
+            backgroundColor: theme.palette.background.paper, // Tooltip background
+            titleColor: theme.palette.text.primary, // Tooltip title color
+            bodyColor: theme.palette.text.primary, // Tooltip body color
+            borderColor: theme.palette.divider, // Border for better contrast
             borderWidth: 1,
             padding: 10,
           },
@@ -81,11 +97,11 @@ const Chart = ({ data }) => {
     return () => {
       if (chartInstance.current) chartInstance.current.destroy();
     };
-  }, [data]);
+  }, [data, theme]); // Recreate chart when data or theme changes
 
   return (
-    <Paper elevation={3} sx={{ padding: 2, borderRadius: 2, marginTop: 3 }}>
-      <Typography variant="h6" align="center" gutterBottom>
+    <Paper elevation={3} sx={{ padding: 2, borderRadius: 2, marginTop: 3, background: theme.palette.background.paper }}>
+      <Typography variant="h6" align="center" gutterBottom sx={{ color: theme.palette.text.primary }}>
         Price Data Chart
       </Typography>
       <Box sx={{ position: 'relative', width: '100%', height: '400px' }}>
