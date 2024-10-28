@@ -4,7 +4,6 @@ Here’s a README file for your project. You can customize it further based on y
 
 # Market Data WebSocket Implementation
 
-![Project Logo](path/to/logo.png) <!-- Update with actual logo path -->
 
 ## Live Demo
 
@@ -52,10 +51,10 @@ This project is a React-based web application that visualizes market data in rea
 
 3. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
-4. Open your browser and go to `http://localhost:3000`.
+4. Open your browser and go to `http://localhost:5174`.
 
 ## Usage
 
